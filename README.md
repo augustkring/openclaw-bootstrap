@@ -62,12 +62,12 @@ Placeholders come in two flavours — both wrapped in double curly braces, fille
 After instantiation, run:
 
 ```bash
-grep -r '{{' . --exclude-dir=.git --exclude-dir=auto-memory
+grep -r '{{' . --exclude-dir=.git --exclude-dir=auto-memory --exclude=README.md
 ```
 
 The only hits should be `{{FROM_BOOTSTRAP}}` markers in `USER.md`. Anything else means a placeholder got missed.
 
-*(Why `--exclude-dir=auto-memory`? The files in `auto-memory/*_example.md` are deliberate scaffolds for future memories you'll write later — their placeholders are filled when you rename a scaffold into a real memory file.)*
+*(Why the excludes? `auto-memory/*_example.md` files are deliberate scaffolds for future memories you'll write later — their placeholders are filled when you rename a scaffold into a real memory file. `README.md` documents the placeholder syntax using literal `{{` sequences and would trip the check otherwise.)*
 
 The canonical pre-fill set:
 
@@ -164,9 +164,11 @@ Run `BOOTSTRAP.md` as an actual dialogue. Don't let the user rate themselves 3+ 
 
 Edit `TOOLS.md` — flip `❌ Not connected` to `✅ Connected` as each tool comes online. `HEARTBEAT.md` only scans what's listed as connected, so this is load-bearing.
 
-### 5. Delete BOOTSTRAP.md
+### 5. Delete BOOTSTRAP.md (and optionally README.md)
 
 Once the BOOTSTRAP conversation is complete and `USER.md` is filled in, delete `BOOTSTRAP.md`. It's first-session only.
+
+You can also delete this `README.md` at this point — the agent doesn't read it, and keeping it around just clutters the workspace. The canonical copy lives in the `openclaw-bootstrap` repo if you ever need it again.
 
 ### 6. First session check
 
@@ -179,7 +181,7 @@ Before you consider the agent live, confirm:
 - [ ] Today's `memory/YYYY-MM-DD.md` exists with the first session's log
 - [ ] `BOOTSTRAP.md` has been deleted
 - [ ] Auto-memory `MEMORY.md` points at the workspace `MEMORY.md` path
-- [ ] `grep -r '{{' . --exclude-dir=.git --exclude-dir=auto-memory` turns up only `{{FROM_BOOTSTRAP}}`
+- [ ] `grep -r '{{' . --exclude-dir=.git --exclude-dir=auto-memory --exclude=README.md` turns up only `{{FROM_BOOTSTRAP}}`
 
 ## What's intentionally not in this template
 
