@@ -1,0 +1,18 @@
+# Runtime / transient state
+.openclaw/workspace-state.json
+scripts/logs/
+state/
+
+# Secrets (belt-and-suspenders)
+**/.env
+**/.env.*
+**/*.key
+**/*.pem
+**/credentials*
+**/secrets*
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*~

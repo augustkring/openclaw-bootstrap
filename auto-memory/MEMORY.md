@@ -1,0 +1,1 @@
+- Substantive memory (user profile, projects, decisions) lives in the workspace: `{{WORKSPACE_PATH}}/MEMORY.md` and `{{WORKSPACE_PATH}}/memory/YYYY-MM-DD.md`. See workspace `AGENTS.md` for the session boot sequence.
