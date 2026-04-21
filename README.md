@@ -54,12 +54,20 @@ Separately, put the `auto-memory/` contents into the Claude Code auto-memory dir
 
 ### 2. Find and replace placeholders
 
-Placeholders come in two flavours — both `{{DOUBLE_CURLY}}`, filled at different times:
+Placeholders come in two flavours — both wrapped in double curly braces, filled at different times:
 
 - **Pre-fill (sed target)** — known before the first session. Names like `{{AGENT_NAME}}`, `{{USER_FIRST_NAME}}`, `{{WORKSPACE_PATH}}`. Run the sed command below to substitute these in bulk.
 - **`{{FROM_BOOTSTRAP}}`** — a single repeated marker for fields filled *during* the BOOTSTRAP conversation (goals, patterns, routines, etc.). The sed command deliberately leaves these alone; the agent replaces them as it talks with the user in session one.
 
-After instantiation, `grep -r '{{' .` should only turn up `{{FROM_BOOTSTRAP}}` markers. Anything else means a placeholder got missed.
+After instantiation, run:
+
+```bash
+grep -r '{{' . --exclude-dir=.git --exclude-dir=auto-memory
+```
+
+The only hits should be `{{FROM_BOOTSTRAP}}` markers in `USER.md`. Anything else means a placeholder got missed.
+
+*(Why `--exclude-dir=auto-memory`? The files in `auto-memory/*_example.md` are deliberate scaffolds for future memories you'll write later — their placeholders are filled when you rename a scaffold into a real memory file.)*
 
 The canonical pre-fill set:
 
@@ -90,25 +98,58 @@ The canonical pre-fill set:
 **Dates:**
 - `{{TODAY}}` — ISO date you're instantiating, e.g. `2026-04-21`
 
-**Quick find-replace (macOS / Linux):**
+**Quick find-replace (macOS / Linux).** Copy, set the values at the top, paste into your shell from inside the new workspace root:
 
 ```bash
-# From inside the new workspace root
-find . -type f -name '*.md' -exec sed -i \
-  -e 's|{{AGENT_NAME}}|Ida|g' \
-  -e 's|{{AGENT_NAME_LOWER}}|ida|g' \
-  -e 's|{{AGENT_EMOJI}}|🟢|g' \
-  -e 's|{{USER_FIRST_NAME}}|<first>|g' \
-  -e 's|{{USER_LAST_NAME}}|<last>|g' \
-  -e 's|{{USER_FULL_NAME}}|<first> <last>|g' \
-  -e 's|{{USER_LOCATION}}|<city>, <country>|g' \
-  -e 's|{{USER_TIMEZONE}}|<tz>|g' \
-  -e 's|{{WORKSPACE_PATH}}|/home/ida/.openclaw/workspace|g' \
-  -e 's|{{TODAY}}|2026-04-21|g' \
+# Set these, then run the block below.
+AGENT_NAME="Ida"
+AGENT_NAME_LOWER="ida"
+AGENT_EMOJI="🟢"
+AGENT_ROLE_SHORT="Personal assistant"
+AGENT_ROLE_LONG="long-term thinking partner, operational backbone, pattern spotter, mentor, and honest mirror"
+AGENT_VIBE="Direct, sharp, calm under pressure"
+AGENT_AVATAR_PATH_OR_TBD="TBD"
+
+USER_FIRST_NAME="First"
+USER_LAST_NAME="Last"
+USER_FULL_NAME="First Last"
+USER_LOCATION="City, Country"
+USER_TIMEZONE="CET / CEST"
+USER_PRIMARY_LANGUAGE="English"
+USER_WORKING_LANGUAGE="English"
+USER_COMMUNICATION_STYLE="Direct, honest, value-driven, no filler"
+USER_CURRENT_WORK="[one-line description]"
+
+WORKSPACE_PATH="/home/ida/.openclaw/workspace"
+VAULT_PATH="/home/ida/vault"   # set empty string if no vault
+TODAY="$(date -I)"
+
+find . -type f \( -name '*.md' -o -name 'LICENSE' \) -not -path './.git/*' -exec sed -i \
+  -e "s|{{AGENT_NAME}}|${AGENT_NAME}|g" \
+  -e "s|{{AGENT_NAME_LOWER}}|${AGENT_NAME_LOWER}|g" \
+  -e "s|{{AGENT_EMOJI}}|${AGENT_EMOJI}|g" \
+  -e "s|{{AGENT_ROLE_SHORT}}|${AGENT_ROLE_SHORT}|g" \
+  -e "s|{{AGENT_ROLE_LONG}}|${AGENT_ROLE_LONG}|g" \
+  -e "s|{{AGENT_VIBE}}|${AGENT_VIBE}|g" \
+  -e "s|{{AGENT_AVATAR_PATH_OR_TBD}}|${AGENT_AVATAR_PATH_OR_TBD}|g" \
+  -e "s|{{USER_FIRST_NAME}}|${USER_FIRST_NAME}|g" \
+  -e "s|{{USER_LAST_NAME}}|${USER_LAST_NAME}|g" \
+  -e "s|{{USER_FULL_NAME}}|${USER_FULL_NAME}|g" \
+  -e "s|{{USER_LOCATION}}|${USER_LOCATION}|g" \
+  -e "s|{{USER_TIMEZONE}}|${USER_TIMEZONE}|g" \
+  -e "s|{{USER_PRIMARY_LANGUAGE}}|${USER_PRIMARY_LANGUAGE}|g" \
+  -e "s|{{USER_WORKING_LANGUAGE}}|${USER_WORKING_LANGUAGE}|g" \
+  -e "s|{{USER_COMMUNICATION_STYLE}}|${USER_COMMUNICATION_STYLE}|g" \
+  -e "s|{{USER_CURRENT_WORK}}|${USER_CURRENT_WORK}|g" \
+  -e "s|{{WORKSPACE_PATH}}|${WORKSPACE_PATH}|g" \
+  -e "s|{{VAULT_PATH}}|${VAULT_PATH}|g" \
+  -e "s|{{TODAY}}|${TODAY}|g" \
   {} +
 ```
 
-Run it once, then open `IDENTITY.md` and `USER.md` by hand — those need real content in them, not just substitutions.
+> On macOS the system `sed` needs `-i ''` (empty string after `-i`). On Linux (and `gsed` on macOS via Homebrew) use `-i` with no argument as shown.
+
+Run it once, then open `IDENTITY.md` and `USER.md` by hand — those still need real content filled in, not just substitutions.
 
 ### 3. Fill in the profile
 
@@ -138,7 +179,7 @@ Before you consider the agent live, confirm:
 - [ ] Today's `memory/YYYY-MM-DD.md` exists with the first session's log
 - [ ] `BOOTSTRAP.md` has been deleted
 - [ ] Auto-memory `MEMORY.md` points at the workspace `MEMORY.md` path
-- [ ] `grep -r '{{' .` turns up nothing
+- [ ] `grep -r '{{' . --exclude-dir=.git --exclude-dir=auto-memory` turns up only `{{FROM_BOOTSTRAP}}`
 
 ## What's intentionally not in this template
 
@@ -148,7 +189,7 @@ Before you consider the agent live, confirm:
 
 ## Placeholder syntax
 
-All placeholders use `{{DOUBLE_CURLY}}`. Chosen because:
+All placeholders use double curly braces (e.g. `AGENT_NAME` wrapped in `{{ ... }}`). Chosen because:
 - Easy to grep (`grep -r '{{' .`) to confirm nothing was missed
 - Easy to sed-replace
 - Doesn't collide with Markdown, frontmatter, or shell syntax
