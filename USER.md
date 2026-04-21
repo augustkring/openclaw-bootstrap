@@ -20,10 +20,10 @@ updated: {{TODAY}}
 
 ## What they're building
 
-- **Current work:** [from BOOTSTRAP]
-- **6-month goal:** [from BOOTSTRAP]
-- **2-year vision:** [from BOOTSTRAP]
-- **Current priority:** [from BOOTSTRAP]
+- **Current work:** {{FROM_BOOTSTRAP}}
+- **6-month goal:** {{FROM_BOOTSTRAP}}
+- **2-year vision:** {{FROM_BOOTSTRAP}}
+- **Current priority:** {{FROM_BOOTSTRAP}}
 
 ## Key people
 
@@ -45,20 +45,20 @@ updated: {{TODAY}}
 
 ## How they think and decide
 
-- **Decision style:** [from BOOTSTRAP]
-- **Relationship with risk:** [from BOOTSTRAP]
-- **When stuck:** [from BOOTSTRAP]
-- **Tends to overthink:** [from BOOTSTRAP]
-- **Tends to under-think:** [from BOOTSTRAP]
-- **Frameworks they actually use:** [from BOOTSTRAP]
+- **Decision style:** {{FROM_BOOTSTRAP}}
+- **Relationship with risk:** {{FROM_BOOTSTRAP}}
+- **When stuck:** {{FROM_BOOTSTRAP}}
+- **Tends to overthink:** {{FROM_BOOTSTRAP}}
+- **Tends to under-think:** {{FROM_BOOTSTRAP}}
+- **Frameworks they actually use:** {{FROM_BOOTSTRAP}}
 
 ## Known patterns
 
-- **Stalling triggers:** [from BOOTSTRAP]
-- **Rushing triggers:** [from BOOTSTRAP]
-- **Blind spots:** [from BOOTSTRAP — what people close to them wish they'd do differently]
-- **Gap between self-image and others' experience:** [from BOOTSTRAP]
-- **Currently avoiding:** [from BOOTSTRAP]
+- **Stalling triggers:** {{FROM_BOOTSTRAP}}
+- **Rushing triggers:** {{FROM_BOOTSTRAP}}
+- **Blind spots:** {{FROM_BOOTSTRAP}} — what people close to them wish they'd do differently
+- **Gap between self-image and others' experience:** {{FROM_BOOTSTRAP}}
+- **Currently avoiding:** {{FROM_BOOTSTRAP}}
 
 ## Self-understanding frameworks
 
@@ -88,31 +88,31 @@ updated: {{TODAY}}
 
 ## What they want from {{AGENT_NAME}}
 
-- **Push back on:** [from BOOTSTRAP]
-- **Never do:** [from BOOTSTRAP]
-- **Interrupt flow when:** [from BOOTSTRAP]
-- **Definition of "helpful":** [from BOOTSTRAP]
-- **AI behaviors that annoy them:** [from BOOTSTRAP]
+- **Push back on:** {{FROM_BOOTSTRAP}}
+- **Never do:** {{FROM_BOOTSTRAP}}
+- **Interrupt flow when:** {{FROM_BOOTSTRAP}}
+- **Definition of "helpful":** {{FROM_BOOTSTRAP}}
+- **AI behaviors that annoy them:** {{FROM_BOOTSTRAP}}
 
 ## Life outside work
 
-- **Health/fitness:** [from BOOTSTRAP]
-- **Relationships:** [from BOOTSTRAP]
+- **Health/fitness:** {{FROM_BOOTSTRAP}}
+- **Relationships:** {{FROM_BOOTSTRAP}}
 - **Routines:**
-  - **Morning:** [from BOOTSTRAP]
-  - **Work:** [from BOOTSTRAP]
-  - **Exercise:** [from BOOTSTRAP]
-  - **Evening:** [from BOOTSTRAP]
-  - **Sleep:** [from BOOTSTRAP]
-  - **Weekly anchors:** [from BOOTSTRAP]
-- **Good week looks like:** [from BOOTSTRAP]
-- **Bad week looks like:** [from BOOTSTRAP]
+  - **Morning:** {{FROM_BOOTSTRAP}}
+  - **Work:** {{FROM_BOOTSTRAP}}
+  - **Exercise:** {{FROM_BOOTSTRAP}}
+  - **Evening:** {{FROM_BOOTSTRAP}}
+  - **Sleep:** {{FROM_BOOTSTRAP}}
+  - **Weekly anchors:** {{FROM_BOOTSTRAP}}
+- **Good week looks like:** {{FROM_BOOTSTRAP}}
+- **Bad week looks like:** {{FROM_BOOTSTRAP}}
 
 ## Tools and systems
 
-- **Daily tools:** [from BOOTSTRAP]
-- **Organization system:** [from BOOTSTRAP]
-- **Tools they wish they used better:** [from BOOTSTRAP]
+- **Daily tools:** {{FROM_BOOTSTRAP}}
+- **Organization system:** {{FROM_BOOTSTRAP}}
+- **Tools they wish they used better:** {{FROM_BOOTSTRAP}}
 
 ---
 

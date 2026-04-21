@@ -7,6 +7,7 @@ Placeholder versions of the framework files that make up an OpenClaw agent's "pe
 ```
 templates/
 ├── README.md              ← this file
+├── LICENSE                ← MIT
 ├── .gitignore             ← standard ignores for workspace repos
 │
 ├── IDENTITY.md            ← Tier 1 — per-agent (name, vibe, emoji)
@@ -53,7 +54,14 @@ Separately, put the `auto-memory/` contents into the Claude Code auto-memory dir
 
 ### 2. Find and replace placeholders
 
-Every file uses `{{DOUBLE_CURLY}}` placeholders. The canonical set:
+Placeholders come in two flavours — both `{{DOUBLE_CURLY}}`, filled at different times:
+
+- **Pre-fill (sed target)** — known before the first session. Names like `{{AGENT_NAME}}`, `{{USER_FIRST_NAME}}`, `{{WORKSPACE_PATH}}`. Run the sed command below to substitute these in bulk.
+- **`{{FROM_BOOTSTRAP}}`** — a single repeated marker for fields filled *during* the BOOTSTRAP conversation (goals, patterns, routines, etc.). The sed command deliberately leaves these alone; the agent replaces them as it talks with the user in session one.
+
+After instantiation, `grep -r '{{' .` should only turn up `{{FROM_BOOTSTRAP}}` markers. Anything else means a placeholder got missed.
+
+The canonical pre-fill set:
 
 **Agent identity:**
 - `{{AGENT_NAME}}` — title case, e.g. `HAL`, `Ida`
@@ -106,8 +114,8 @@ Run it once, then open `IDENTITY.md` and `USER.md` by hand — those need real c
 
 Two files need actual authoring, not just find-replace:
 
-- **`IDENTITY.md`** — write the agent's role, vibe, and emoji as real values. Delete the "Placeholder reference" section at the bottom once you're done.
-- **`USER.md`** — walk through `BOOTSTRAP.md` with the user. That conversation is how this file gets populated honestly.
+- **`IDENTITY.md`** — confirm the agent's role, vibe, and emoji read right after substitution.
+- **`USER.md`** — walk through `BOOTSTRAP.md` with the user. That conversation replaces every `{{FROM_BOOTSTRAP}}` marker with real content.
 
 Run `BOOTSTRAP.md` as an actual dialogue. Don't let the user rate themselves 3+ on every Human OS dimension. Push for evidence.
 
@@ -124,12 +132,13 @@ Once the BOOTSTRAP conversation is complete and `USER.md` is filled in, delete `
 Before you consider the agent live, confirm:
 
 - [ ] `IDENTITY.md` reads like a real agent, not a template
-- [ ] `USER.md` has real content in every section (no `[from BOOTSTRAP]` placeholders left)
+- [ ] `USER.md` has real content in every section (no `{{FROM_BOOTSTRAP}}` markers left)
 - [ ] `TOOLS.md` reflects what's actually wired up
 - [ ] `MEMORY.md` has at least a "session 1 notes" entry seeded from BOOTSTRAP
 - [ ] Today's `memory/YYYY-MM-DD.md` exists with the first session's log
 - [ ] `BOOTSTRAP.md` has been deleted
 - [ ] Auto-memory `MEMORY.md` points at the workspace `MEMORY.md` path
+- [ ] `grep -r '{{' .` turns up nothing
 
 ## What's intentionally not in this template
 
